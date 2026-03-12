@@ -549,8 +549,8 @@ public class Items {
 					LoreBuilderDynamic.power(1024, " per block converted.")));
 
 	public static final ItemWrapper WIRELESS_ENERGY_POINT = ItemWrapper.create(Keys.WIRELESS_ENERGY_POINT,
-			new SlimefunItemStack(Keys.WIRELESS_ENERGY_POINT.asSlimefunId(), new CustomItemStack(
-					HeadTextures.fromHash("335a21d95e8597759fb259c951ea68e1ad3374ca41e56ef126ffabfe03c1e0"),
+			new SlimefunItemStack(Keys.WIRELESS_ENERGY_POINT.asSlimefunId(),
+					new CustomItemStack(HeadTextures.fromHash("335a21d95e8597759fb259c951ea68e1ad3374ca41e56ef126ffabfe03c1e0")),
 					"&6Wireless Energy Point",
 					"",
 					"&fTransfers Energy Wirelessly",
