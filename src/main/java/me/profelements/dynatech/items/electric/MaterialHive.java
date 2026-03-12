@@ -36,7 +36,7 @@ public class MaterialHive extends AbstractElectricMachine implements Radioactive
 	private static final int[] OUTPUT_BORDER_SLOTS = new int[] { 14, 15, 16, 17, 23, 26, 32, 33, 34, 35 };
 
 	private static final int[] BORDER_KEY = new int[] { 3, 5, 13 };
-	private static final SlimefunItemStack UI_KEY = new SlimefunItemStack("_UI_KEY",
+	private static final ItemStack UI_KEY = new SlimefunItemStack("_UI_KEY",
 			Material.LIGHT_BLUE_STAINED_GLASS_PANE, " ");
 
 	private static final int[] INPUT_SLOTS = new int[] { 19, 20, 4 };
