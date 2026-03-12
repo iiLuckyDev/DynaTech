@@ -1,4 +1,4 @@
-﻿package me.profelements.dynatech.registries;
+package me.profelements.dynatech.registries;
 
 import me.profelements.dynatech.DynaTech;
 import me.profelements.dynatech.items.misc.StarDustMeteor;
