@@ -42,7 +42,7 @@ public class Scoop extends SlimefunItem implements Rechargeable, NotPlaceable {
 
 			if (entity instanceof Bee) {
 
-				entity.getWorld().dropItemNaturally(entity.getLocation(), Items.BEE.stack());
+				entity.getWorld().dropItemNaturally(entity.getLocation(), toBukkitItemStack(Items.BEE.stack()));
 				entity.remove();
 				removeItemCharge(item, 8);
 
@@ -50,6 +50,12 @@ public class Scoop extends SlimefunItem implements Rechargeable, NotPlaceable {
 			}
 		};
 
+	}
+
+	private static ItemStack toBukkitItemStack(SlimefunItemStack stack) {
+		ItemStack itemStack = new ItemStack(stack.getType(), stack.getAmount());
+		itemStack.setItemMeta(stack.getItemMeta());
+		return itemStack;
 	}
 
 	@Override

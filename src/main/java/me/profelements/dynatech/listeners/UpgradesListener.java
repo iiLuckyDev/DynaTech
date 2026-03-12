@@ -105,12 +105,18 @@ public class UpgradesListener implements Listener {
 		String upgrades = BlockStorage.getLocationInfo(l, "upgrades");
 
 		if (upgrades != null && upgrades.contains("auto_output")) {
-			l.getWorld().dropItemNaturally(l, Items.AUTO_OUTPUT_UPGRADE.stack());
+			l.getWorld().dropItemNaturally(l, toBukkitItemStack(Items.AUTO_OUTPUT_UPGRADE.stack()));
 		}
 
 		if (upgrades != null && upgrades.contains("auto_input")) {
-			l.getWorld().dropItemNaturally(l, Items.AUTO_INPUT_UPGRADE.stack());
+			l.getWorld().dropItemNaturally(l, toBukkitItemStack(Items.AUTO_INPUT_UPGRADE.stack()));
 		}
+	}
+
+	private static ItemStack toBukkitItemStack(io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack stack) {
+		ItemStack itemStack = new ItemStack(stack.getType(), stack.getAmount());
+		itemStack.setItemMeta(stack.getItemMeta());
+		return itemStack;
 	}
 
 	private static void checkInputUpgrade(AsyncMachineOperationFinishEvent e) {

@@ -11,7 +11,6 @@ import io.github.schntgaispock.gastronomicon.api.items.FoodItemStack;
 import io.github.schntgaispock.gastronomicon.core.slimefun.recipes.GastroRecipeType;
 import io.github.schntgaispock.gastronomicon.util.item.HeadTextures;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.events.SlimefunItemRegistryFinalizedEvent;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
@@ -34,10 +33,10 @@ public class GastronomiconIntegrationListener implements Listener {
 
 		if (item1 instanceof CulinaryGenerator cg && item2 instanceof SeedPlucker sp && gastronomiconInstalled) {
 			for (SlimefunItem item : Slimefun.getRegistry().getEnabledSlimefunItems()) {
-				if (new SlimefunItemStack(item.getId(), item.getItem()) instanceof FoodItemStack food && !food.getTexture().equals(HeadTextures.NONE)
+				if (item.getItem() instanceof FoodItemStack food && !food.getTexture().equals(HeadTextures.NONE)
 						&& !item.getId().contains("GN_PERFECT")) {
-					cg.registerFuel(food, food.getHunger() * 4);
-					PicnicBasket.registerFood(food, new Pair<>(food.getHunger(), (float) food.getSaturation()));
+					cg.registerFuel(item.getItem(), food.getHunger() * 4);
+					PicnicBasket.registerFood(item.getItem(), new Pair<>(food.getHunger(), (float) food.getSaturation()));
 				}
 
 				if (item.getRecipeType() == GastroRecipeType.HARVEST) {
