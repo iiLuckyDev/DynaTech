@@ -5,8 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
-import io.github.bakedlibs.dough.skins.PlayerHead;
-import io.github.bakedlibs.dough.skins.PlayerSkin;
+import me.profelements.dynatech.utils.HeadTextures;
 import me.profelements.dynatech.DynaTech;
 import org.bukkit.NamespacedKey;
 import org.bukkit.World.Environment;
@@ -19,7 +18,7 @@ public class StarDustMeteor extends UnplaceableBlock implements GEOResource {
 
 	public static final SlimefunItemStack STARDUST_METEOR = new SlimefunItemStack(
 		"STARDUST_METEOR",
-		PlayerHead.getItemStack(PlayerSkin.fromHashCode("c482d1ba4bdac990f6ea987703587fd79fe55555363251984679d4f279cc0c2a")),
+		HeadTextures.fromHash("c482d1ba4bdac990f6ea987703587fd79fe55555363251984679d4f279cc0c2a"),
 		"&6Stardust Meteor",
 		"",
 		"&fGeomined from Mountain or Badlands Biomes"

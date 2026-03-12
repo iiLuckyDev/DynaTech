@@ -8,8 +8,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.bakedlibs.dough.items.CustomItemStack;
-import io.github.bakedlibs.dough.skins.PlayerHead;
-import io.github.bakedlibs.dough.skins.PlayerSkin;
+import me.profelements.dynatech.utils.HeadTextures;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Material;
@@ -437,8 +436,7 @@ public class Recipes {
 			.setKey(Keys.BEE.key())
 			.setRecipeType(RecipeTypes.SCOOPING)
 			.setInput(new CustomItemStack(
-					PlayerHead.getItemStack(PlayerSkin.fromHashCode(
-							"12724a9a4cdd68ba49415560e5be40b4a1c47cb5be1d66aedb52a30e62ef2d47")),
+					HeadTextures.fromHash("12724a9a4cdd68ba49415560e5be40b4a1c47cb5be1d66aedb52a30e62ef2d47"),
 					"&aAny Bee"))
 			.setOutput(Items.BEE.stack().item())
 			.register();
@@ -485,9 +483,8 @@ public class Recipes {
 	public static final Recipe VEX_GEM = Recipe.init()
 			.setKey(Keys.VEX_GEM.key())
 			.setRecipeType(RecipeType.MOB_DROP)
-			.setInput(new ItemStack[] { null, null, null, null, new CustomItemStack(PlayerHead.getItemStack(PlayerSkin
-					.fromHashCode("c2ec5a516617ff1573cd2f9d5f3969f56d5575c4ff4efefabd2a18dc7ab98cd")),
-					"&aVex") })
+			.setInput(new ItemStack[] { null, null, null, null,
+					new CustomItemStack(HeadTextures.fromHash("c2ec5a516617ff1573cd2f9d5f3969f56d5575c4ff4efefabd2a18dc7ab98cd"), "&aVex") })
 			.setOutput(Items.VEX_GEM.stack().item())
 			.register();
 
@@ -503,9 +500,8 @@ public class Recipes {
 	public static final Recipe GHOSTLY_ESSENCE = Recipe.init()
 			.setKey(Keys.GHOSTLY_ESSENCE.key())
 			.setRecipeType(RecipeType.MOB_DROP)
-			.setInput(new ItemStack[] { null, null, null, null, new CustomItemStack(PlayerHead.getItemStack(PlayerSkin
-					.fromHashCode("c2ec5a516617ff1573cd2f9d5f3969f56d5575c4ff4efefabd2a18dc7ab98cd")),
-					"&aVex") })
+			.setInput(new ItemStack[] { null, null, null, null,
+					new CustomItemStack(HeadTextures.fromHash("c2ec5a516617ff1573cd2f9d5f3969f56d5575c4ff4efefabd2a18dc7ab98cd"), "&aVex") })
 			.setOutput(Items.GHOSTLY_ESSENCE.stack().item())
 			.register();
 
