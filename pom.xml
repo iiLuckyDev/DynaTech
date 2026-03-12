@@ -110,16 +110,10 @@
 			<scope>compile</scope>
 		</dependency>
         <dependency>
-            <groupId>com.github.Slimefun</groupId>
-            <artifactId>Slimefun4</artifactId>
-            <version>RC-37</version> 
+            <groupId>local.slimefun5</groupId>
+            <artifactId>Slimefun5</artifactId>
+            <version>5.0.3-local</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.github.thebusybiscuit</groupId>
-                    <artifactId>cscorelib2</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 		<dependency>
 			<groupId>com.github.thebusybiscuit</groupId>
