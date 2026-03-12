@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.bakedlibs.dough.collections.Pair;
 import io.github.schntgaispock.gastronomicon.api.items.FoodItemStack;
+import io.github.schntgaispock.gastronomicon.core.slimefun.items.food.GastroFood;
 import io.github.schntgaispock.gastronomicon.core.slimefun.recipes.GastroRecipeType;
 import io.github.schntgaispock.gastronomicon.util.item.HeadTextures;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -33,10 +34,11 @@ public class GastronomiconIntegrationListener implements Listener {
 
 		if (item1 instanceof CulinaryGenerator cg && item2 instanceof SeedPlucker sp && gastronomiconInstalled) {
 			for (SlimefunItem item : Slimefun.getRegistry().getEnabledSlimefunItems()) {
-				if (item.getItem() instanceof FoodItemStack food && !food.getTexture().equals(HeadTextures.NONE)
+				if (item instanceof GastroFood food && !food.getItem().getTexture().equals(HeadTextures.NONE)
 						&& !item.getId().contains("GN_PERFECT")) {
-					cg.registerFuel(item.getItem(), food.getHunger() * 4);
-					PicnicBasket.registerFood(item.getItem(), new Pair<>(food.getHunger(), (float) food.getSaturation()));
+					FoodItemStack foodStack = food.getItem();
+					cg.registerFuel(foodStack.item(), foodStack.getHunger() * 4);
+					PicnicBasket.registerFood(foodStack.item(), new Pair<>(foodStack.getHunger(), (float) foodStack.getSaturation()));
 				}
 
 				if (item.getRecipeType() == GastroRecipeType.HARVEST) {

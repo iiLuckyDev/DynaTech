@@ -48,7 +48,7 @@ public class StardustReactor extends AbstractGenerator {
 	}
 
 	protected void registerDefaultFuelTypes() {
-		fuels.add(new MachineFuel(32, Items.STAR_DUST.stack()));
+		fuels.add(new MachineFuel(32, Items.STAR_DUST.stack().item()));
 	}
 
 	@Nonnull
