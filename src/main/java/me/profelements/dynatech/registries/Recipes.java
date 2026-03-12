@@ -523,7 +523,7 @@ public class Recipes {
 	public static final Recipe STAR_DUST = Recipe.init()
 			.setKey(Keys.STAR_DUST.key())
 			.setRecipeType(RecipeType.GRIND_STONE)
-			.setInput(StarDustMeteor.STARDUST_METEOR)
+			.setInput(StarDustMeteor.STARDUST_METEOR.item())
 			.setOutput(Items.STAR_DUST.stack().item())
 			.register();
 	// END Materials

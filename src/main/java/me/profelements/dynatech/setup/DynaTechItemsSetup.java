@@ -640,15 +640,15 @@ public class DynaTechItemsSetup {
 						.setKey(APIARY_KEY.key())
 						.setRecipeType(RecipeType.ENHANCED_CRAFTING_TABLE)
 						.setInput(new ItemStack[] {
-								sfi(SlimefunItems.LARGE_CAPACITOR), item.getItem().item(), sfi(SlimefunItems.LARGE_CAPACITOR),
-								item.getItem().item(), item(Items.MATERIAL_HIVE), item.getItem().item(),
+								sfi(SlimefunItems.LARGE_CAPACITOR), item.getItem(), sfi(SlimefunItems.LARGE_CAPACITOR),
+								item.getItem(), item(Items.MATERIAL_HIVE), item.getItem(),
 								item(Items.MACHINE_SCRAP), item(Items.VEX_GEM), item(Items.MACHINE_SCRAP),
 						})
 						.setOutput(item(APIARY))
 						.register();
 
 				new MineralizedApiary(ItemGroups.HIVES, APIARY.stack(), APIARY_RECIPE.getRecipeType(),
-						APIARY_RECIPE.getInput(), item.getItem().item())
+						APIARY_RECIPE.getInput(), item.getItem())
 						.setCapacity(16384)
 						.setConsumption(1024)
 						.setProcessingSpeed(1)

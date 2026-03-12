@@ -137,9 +137,9 @@ public class BandaidManager extends AbstractElectricMachine {
 	public List<ItemStack> getDisplayRecipes() {
 		List<ItemStack> display = new ArrayList<>();
 
-		display.add(Items.ITEM_BAND_HASTE.stack());
+		display.add(Items.ITEM_BAND_HASTE.stack().item());
 		display.add(new CustomItemStack(Material.IRON_PICKAXE, "Any Tool"));
-		display.add(Items.ITEM_BAND_HEALTH.stack());
+		display.add(Items.ITEM_BAND_HEALTH.stack().item());
 		display.add(new CustomItemStack(Material.IRON_PICKAXE, "Any Tool"));
 
 		return display;
