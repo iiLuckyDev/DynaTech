@@ -1,5 +1,15 @@
 package me.profelements.dynatech;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import io.github.bakedlibs.dough.updater.BlobBuildUpdater;
 import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
@@ -20,6 +30,7 @@ import me.profelements.dynatech.registries.ItemGroups;
 import me.profelements.dynatech.registries.Items;
 import me.profelements.dynatech.registries.RecipeTypes;
 import me.profelements.dynatech.registries.Recipes;
+import me.profelements.dynatech.registries.Researches;
 import me.profelements.dynatech.registries.Registries;
 import me.profelements.dynatech.setup.DynaTechItemsSetup;
 import me.profelements.dynatech.tasks.ItemBandTask;
@@ -30,6 +41,8 @@ import me.profelements.dynatech.utils.RecipeRegistry;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -40,6 +53,9 @@ import com.google.common.base.Preconditions;
 
 public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
+	private static final String CONFIG_PATH = "config.yml";
+	private static final String CONFIG_VERSION_KEY = "config-version";
+	private static final DateTimeFormatter BACKUP_TIMESTAMP = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
 	private static DynaTech instance;
 	private static boolean exoticGardenInstalled;
 	private static boolean infinityExpansionInstalled;
@@ -58,7 +74,7 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
 		final int TICK_TIME = Slimefun.getTickerTask().getTickRate();
 
-		saveDefaultConfig();
+		ensureConfigUpToDate();
 
 		new Metrics(this, 9689);
 
@@ -110,6 +126,11 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
 		ItemGroups.init(Registries.ITEM_GROUPS);
 		RecipeTypes.init(Registries.RECIPE_TYPES);
 		Recipes.init(Registries.RECIPES);
+		if (getInstance().getConfig().getBoolean("options.enable-researches", true)) {
+			Researches.init();
+		} else {
+			getInstance().getLogger().info("Addon researches are disabled in config.yml.");
+		}
 		Registries.ITEMS.freeze();
 		Registries.ITEM_GROUPS.freeze();
 		Registries.RECIPE_TYPES.freeze();
@@ -172,6 +193,77 @@ public class DynaTech extends JavaPlugin implements SlimefunAddon {
 
 	public static void setInfinityExpansionInstalled(boolean isInfinityExpansionInstalled) {
 		infinityExpansionInstalled = isInfinityExpansionInstalled;
+	}
+
+	private void ensureConfigUpToDate() {
+		int bundledVersion = getBundledConfigVersion();
+		File configFile = new File(getDataFolder(), CONFIG_PATH);
+
+		if (!configFile.exists()) {
+			saveDefaultConfig();
+			reloadConfig();
+			return;
+		}
+
+		FileConfiguration currentConfig = YamlConfiguration.loadConfiguration(configFile);
+		int currentVersion = currentConfig.getInt(CONFIG_VERSION_KEY, 0);
+
+		if (currentVersion == bundledVersion) {
+			reloadConfig();
+			return;
+		}
+
+		if (currentVersion > bundledVersion) {
+			getLogger().warning("Detected a newer config.yml version (" + currentVersion + ") than this build expects (" + bundledVersion + "). Keeping the existing config.");
+			reloadConfig();
+			return;
+		}
+
+		try {
+			File backupFile = new File(getBackupDirectory(), buildBackupName(currentVersion));
+			Files.copy(configFile.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			saveResource(CONFIG_PATH, true);
+			reloadConfig();
+			getLogger().warning("config.yml was updated from version " + currentVersion + " to " + bundledVersion + ".");
+			getLogger().warning("A backup of the previous config was saved to " + backupFile.getPath() + ".");
+		} catch (IOException ex) {
+			getLogger().severe("Failed to back up config.yml. The existing config was kept untouched.");
+			getLogger().severe(ex.getMessage());
+			reloadConfig();
+		}
+	}
+
+	private int getBundledConfigVersion() {
+		try (InputStream stream = getResource(CONFIG_PATH)) {
+			if (stream == null) {
+				getLogger().warning("Bundled config.yml was not found, defaulting config version to 1.");
+				return 1;
+			}
+
+			YamlConfiguration bundledConfig = YamlConfiguration.loadConfiguration(
+					new InputStreamReader(stream, StandardCharsets.UTF_8)
+			);
+
+			return bundledConfig.getInt(CONFIG_VERSION_KEY, 1);
+		} catch (IOException ex) {
+			getLogger().warning("Failed to read bundled config.yml version, defaulting config version to 1.");
+			return 1;
+		}
+	}
+
+	private File getBackupDirectory() throws IOException {
+		File backupDirectory = new File(getDataFolder(), "config-backups");
+
+		if (!backupDirectory.exists() && !backupDirectory.mkdirs()) {
+			throw new IOException("Could not create config backup directory at " + backupDirectory.getPath());
+		}
+
+		return backupDirectory;
+	}
+
+	private String buildBackupName(int version) {
+		String versionLabel = version > 0 ? "v" + version : "legacy";
+		return "config-" + versionLabel + "-" + LocalDateTime.now().format(BACKUP_TIMESTAMP) + ".yml";
 	}
 
 	@Nullable

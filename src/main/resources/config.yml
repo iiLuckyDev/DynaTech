@@ -1,3 +1,11 @@
+# DynaTech configuration
+# Config version: 2
+# If this version changes in a future update, DynaTech will back up your current
+# config and replace it with the new default config file.
+
+config-version: 2
+
 options:
   auto-update: false
   disable-dimensionalhome-world: false
+  enable-researches: true

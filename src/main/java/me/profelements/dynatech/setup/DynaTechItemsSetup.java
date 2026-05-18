@@ -221,15 +221,7 @@ public class DynaTechItemsSetup {
 				.register(plugin);
 
 		new GrowthChamberEnd(ItemGroups.MACHINES, Items.GROWTH_CHAMBER_END.stack(),
-				RecipeType.ENHANCED_CRAFTING_TABLE,
-				new ItemStack[] {
-						sfi(SlimefunItems.HARDENED_GLASS), new ItemStack(Material.MAGENTA_STAINED_GLASS),
-						sfi(SlimefunItems.HARDENED_GLASS),
-						new ItemStack(Material.PURPUR_BLOCK), new ItemStack(Material.CHORUS_FLOWER),
-						new ItemStack(Material.END_STONE),
-						item(Items.STAINLESS_STEEL_INGOT), item(Items.GROWTH_CHAMBER),
-						item(Items.STAINLESS_STEEL_INGOT)
-				})
+				Recipes.GROWTH_CHAMBER_END.getRecipeType(), Recipes.GROWTH_CHAMBER_END.getInput())
 				.setCapacity(512)
 				.setConsumption(32)
 				.setProcessingSpeed(1)
