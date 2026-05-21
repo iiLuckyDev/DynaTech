@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Material;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Beehive;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -153,8 +154,11 @@ public class MineralizedApiary extends AbstractElectricMachine {
 		ItemStack item = PROGRESS_STACK.clone();
 		ItemMeta meta = item.getItemMeta();
 
-		meta.setDisplayName("&fInfo");
-		meta.setLore(Arrays.asList("&fBee Count: " + beeCount, "&fCurrent Speed: " + currSpeed + "s"));
+		meta.setDisplayName(ChatColor.WHITE + "Info");
+		meta.setLore(Arrays.asList(
+				ChatColor.WHITE + "Bee Count: " + beeCount,
+				ChatColor.WHITE + "Current Speed: " + currSpeed + "s"
+		));
 		item.setItemMeta(meta); 
 
 		menu.replaceExistingItem(20, item);
